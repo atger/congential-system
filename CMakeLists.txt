@@ -7,17 +7,20 @@ set(CMAKE_CXX_STANDARD 17)
 enable_testing()
 add_subdirectory(test)
 
+file(GLOB HEADER_LIST "${PROJECT_SOURCE_DIR}/include/*.hpp")
+
 add_library(
   util
   src/util.cpp
-  include/util.hpp
+  src/seq.cpp
+  ${HEADER_LIST}
 )
 target_include_directories(util PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
+message(${HEADER_LIST})
 add_executable(
   start
   src/main.cpp
-  include/util.hpp
+  ${HEADER_LIST}
 )
 target_link_libraries(start util)
-target_include_directories(util PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_include_directories(util PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
